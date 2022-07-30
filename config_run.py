@@ -1,0 +1,2 @@
+TOCKEN = ""
+DEBUG = True
