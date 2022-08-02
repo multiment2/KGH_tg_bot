@@ -1,0 +1,4 @@
+#!/bin/bash
+
+gunicorn --workers 2 -b localhost:8000 main:app
+lt --port 8000 --subdomain KGH_tg_bot
