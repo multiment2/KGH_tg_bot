@@ -23,7 +23,7 @@ dispatcher.add(echo_handler) #теперь бот будет слушать вс
 updater.pulling()  #Слушай сервера Telegram
 
 def start(update, context):
-  context.bot.ssend_message(chat_id=update.effective_chat.id, text="LALALALa") 
+  context.bot.send_message(chat_id=update.effective_chat.id, text="LALALALa") 
   # `bot.send_message` это метод Telegram API
     # `update.effective_chat.id` - определяем `id` чата, 
     # откуда прилетело сообщение 
