@@ -1,5 +1,5 @@
 from flask import Flask
-import config_run
+from config_run import *
 import telegram
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from telegram.ext import Dispatcher
@@ -12,7 +12,7 @@ updater = Updater(token=TOKEN, use_context=True)
 
 dispatcher = updater.dispatcher
 
-start_handler = CommendHandler('start', start)  #Объединяем функцию и обработчик
+start_handler = CommandHandler('start', start)  #Объединяем функцию и обработчик
 dispatcher.add(start_handler)  #Добавляем обработчик в диспетчер
 
 echo_handler = MessageHandler(Filters.text & (~Filters.command), echo)
