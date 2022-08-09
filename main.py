@@ -1,5 +1,5 @@
 from flask import Flask
-from config_run import *
+import config_run
 import telegram
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from telegram.ext import Dispatcher
@@ -12,17 +12,8 @@ updater = Updater(token=TOKEN, use_context=True)
 
 dispatcher = updater.dispatcher
 
-def start(update, context):
-  context.bot.send_message(chat_id=update.effective_chat.id, text="LALALALa") 
-  # `bot.send_message` это метод Telegram API
-    # `update.effective_chat.id` - определяем `id` чата, 
-    # откуда прилетело сообщение 
-
-start_handler = CommandHandler('start', start)  #Объединяем функцию и обработчик
-dispatcher.add_handler(start_handler)  #Добавляем обработчик в диспетчер
-
-def echo(update, context):
-  pass
+start_handler = CommendHandler('start', start)  #Объединяем функцию и обработчик
+dispatcher.add(start_handler)  #Добавляем обработчик в диспетчер
 
 echo_handler = MessageHandler(Filters.text & (~Filters.command), echo)
 # говорим обработчику `MessageHandler`, если увидишь текстовое 
