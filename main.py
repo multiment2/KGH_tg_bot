@@ -16,9 +16,18 @@ dispatcher = updater.dispatcher
 def start(update, context):
 	context.bot.send_message(chat_id=update.effective_chat.id, text="Я запустился")
 
+
+def sniffer_group(update, context):
+	group_chat_id = update.effective_chat.id
+	context.bot.send_message(group_chat_id, text=str(group_chat_id))
+	return group_chat_id
+
+
 start_handler = CommandHandler('start', start)  #Объединяем функцию и обработчик
 dispatcher.add_handler(start_handler)  #Добавляем обработчик в диспетчер
 
+sniffer_handler = CommandHandler('sniff', sniffer_group)
+dispatcher.add_handler(sniffer_handler)
 #echo_handler = MessageHandler(Filters.text & (~Filters.command), echo)
 # говорим обработчику `MessageHandler`, если увидишь текстовое
 # сообщение (фильтр `Filters.text`)  и это будет не команда
