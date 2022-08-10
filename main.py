@@ -18,9 +18,14 @@ def start(update, context):
 
 
 def sniffer_group(update, context):
+	global group_chat_id
 	group_chat_id = update.effective_chat.id
 	context.bot.send_message(group_chat_id, text=str(group_chat_id))
-	return group_chat_id
+
+def stop_sniffer(update, context):
+	global group_chat_id
+	context.bot.send_message(group_chat_id, text = "Не слежу")
+	group_chat_id = 0
 
 
 start_handler = CommandHandler('start', start)  #Объединяем функцию и обработчик
@@ -28,6 +33,9 @@ dispatcher.add_handler(start_handler)  #Добавляем обработчик 
 
 sniffer_handler = CommandHandler('sniff', sniffer_group)
 dispatcher.add_handler(sniffer_handler)
+
+stop_sniff_handler = CommandHandler('stopsniff', stop_sniffer)
+dispatcher.add_handler(stop_sniff_handler)
 #echo_handler = MessageHandler(Filters.text & (~Filters.command), echo)
 # говорим обработчику `MessageHandler`, если увидишь текстовое
 # сообщение (фильтр `Filters.text`)  и это будет не команда
@@ -40,9 +48,9 @@ updater.start_polling()  #Слушай сервера Telegram
 
 
 
-#@app.route ("/")
+@app.route ("/")
 def hello_func():
-	return "Hello gay"
+	return str(group_chat_id)
 
 
 if __name__ == "__main__":
