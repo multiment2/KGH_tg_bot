@@ -14,6 +14,8 @@ from viberbot.api.viber_requests import ViberUnsubscribedRequest
 app = Flask(__name__)
 viber = Api(BotConfiguration(auth_token=VIBER_TOKEN, name=bot_user_name, avatar='371524012.jpg'))
 
+viber.set_webhook('')
+
 @app.route("/", methods = ['POST'])
 def incoming():
     if not viber.verify_signature(request.get_data(), request.headers.get('X-Veber-Content-Signature')):
