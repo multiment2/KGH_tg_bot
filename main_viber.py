@@ -14,7 +14,7 @@ from viberbot.api.viber_requests import ViberUnsubscribedRequest
 app = Flask(__name__)
 viber = Api(BotConfiguration(auth_token=VIBER_TOKEN, name=bot_user_name, avatar='371524012.jpg'))
 
-viber.set_webhook('')
+viber.set_webhook('https://5000-multiment2-kghtgbot-66yxsd8qrvj.ws-eu61.gitpod.io:5000/')
 
 @app.route("/", methods = ['POST'])
 def incoming():
@@ -33,6 +33,6 @@ def incoming():
     return Response(status=200)
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
 
 

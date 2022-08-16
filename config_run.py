@@ -8,4 +8,4 @@ bot_user_name = "KGH_bot"
 
 group_chat_id = 0
 
-#DEBUG = True
+DEBUG = True
