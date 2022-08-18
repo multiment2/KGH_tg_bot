@@ -1,6 +1,6 @@
 TOKEN = '5454971848:AAFqPyrY6SLDONle1jJ3Xw9zJlGy_jKma9Q'
 
-VIBER_TOKEN = '4fa45c5514a7e67a-25a9ef07fb3d9258-9c0008fa29bb9e31'
+VIBER_TOKEN = '4fabda9452e7e5e1-9fdddf1aa156a57a-e951debecdfdef33'
 
 name = 'ДС "Ростки"'
 
