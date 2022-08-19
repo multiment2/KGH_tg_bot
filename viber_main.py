@@ -22,6 +22,7 @@ viber = Api(BotConfiguration(
     avatar = '371524012.jpg'
 ))
 
+viber.set_webhook('https://multiment.pythonanywhere.com/')
 
 @app.route("/", methods = ['POST'])
 def incoming():
