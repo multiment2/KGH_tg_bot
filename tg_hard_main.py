@@ -7,7 +7,7 @@ url = 'https://api.telegram.org/bot<token>/'
 
 def get_updates_json(request):
     response = requests.get(request + 'getUpdates')
-    return responses.json()
+    return response.json()
 
 def last_update(data):
     results = data['result']
