@@ -20,8 +20,7 @@ def start(update, context):
 def sniffer_group(update, context):
 	global group_chat_id
 	group_chat_id = update.effective_chat.id
-	chat_data = update.get_chat_data()
-	context.bot.send_message(group_chat_id, text=str(group_chat_id)+str(chat_data))
+	context.bot.send_message(group_chat_id, text=str(group_chat_id))
 
 def stop_sniffer(update, context):
 	global group_chat_id
@@ -43,7 +42,7 @@ dispatcher.add_handler(stop_sniff_handler)
 # (фильтр ~Filters.command), то вызови функцию `echo()`
 #dispatcher.add_handler(echo_handler) #теперь бот будет слушать все сообщения чата
 
-#updater.start_polling()  #Слушай сервера Telegram
+updater.start_polling()  #Слушай сервера Telegram
 
 
 
