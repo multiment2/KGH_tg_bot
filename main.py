@@ -19,9 +19,11 @@ def start(update, context):
 def create_list_day(text):
 	msg_list_for_day.append(text)
 
+'''
 def get_msg_text(update):
 	text = update.message.text
 	return text
+'''
 
 def sniffer_group(update, context):
 	'''
@@ -29,16 +31,28 @@ def sniffer_group(update, context):
 	'''
 	global group_chat_id
 	group_chat_id = update.effective_chat.id
-	create_list_day(get_msg_text)
-	context.bot.send_message(group_chat_id, text=str(group_chat_id))
+	text = update.message.text
+	for i in substring_list:
+		if i in text:
+			create_list_day(text)
+		else:
+			pass
+	#context.bot.send_message(group_chat_id, text=str(group_chat_id))
+
+def get_list_day(update, context):
+	global msg_list_for_day
+	chat_id = update.effective_chat.id
+	context.bot.send_message(chat_id, str(msg.split('\n') for msg in msg_list_for_day))
 
 def stop_sniffer(update, context):
 	'''
 	Останавливаем бота.
 	'''
-	global group_chat_id
+	global group_chat_id, msg_list_for_day
 	context.bot.send_message(group_chat_id, text = "Не слежу")
 	group_chat_id = 0
+	msg_list_for_day.clear()
+
 
 
 start_handler = CommandHandler('start', start)  #Объединяем функцию и обработчик
@@ -63,7 +77,7 @@ updater.start_polling()  #Слушай сервера Telegram
 
 @app.route ("/")
 def hello_func():
-	return str(group_chat_id)
+	return msg_list_for_day
 
 
 if __name__ == "__main__":

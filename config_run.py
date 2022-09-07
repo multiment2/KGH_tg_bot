@@ -12,3 +12,5 @@ group_chat_id = 0
 DEBUG = True
 
 msg_list_for_day = []
+
+substring_list = []
