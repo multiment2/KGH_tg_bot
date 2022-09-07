@@ -16,13 +16,26 @@ dispatcher = updater.dispatcher
 def start(update, context):
 	context.bot.send_message(chat_id=update.effective_chat.id, text="Я запустился")
 
+def create_list_day(text):
+	msg_list_for_day.append(text)
+
+def get_msg_text(update):
+	text = update.message.text
+	return text
 
 def sniffer_group(update, context):
+	'''
+	Запускаем сниффер.
+	'''
 	global group_chat_id
 	group_chat_id = update.effective_chat.id
+	create_list_day(get_msg_text)
 	context.bot.send_message(group_chat_id, text=str(group_chat_id))
 
 def stop_sniffer(update, context):
+	'''
+	Останавливаем бота.
+	'''
 	global group_chat_id
 	context.bot.send_message(group_chat_id, text = "Не слежу")
 	group_chat_id = 0
