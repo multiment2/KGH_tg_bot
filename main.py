@@ -20,8 +20,7 @@ def start(update, context):
 def sniffer_group(update, context):
 	global group_chat_id
 	group_chat_id = update.effective_chat.id
-	chat_data = update.get_chat_data()
-	context.bot.send_message(group_chat_id, text=str(group_chat_id)+str(chat_data))
+	context.bot.send_message(group_chat_id, text=str(group_chat_id))
 
 def stop_sniffer(update, context):
 	global group_chat_id
