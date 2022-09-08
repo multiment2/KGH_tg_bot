@@ -13,4 +13,4 @@ DEBUG = True
 
 msg_list_for_day = []
 
-substring_list = []
+substring_list = ['Hi', 'Hello', 'why']

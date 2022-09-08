@@ -16,27 +16,29 @@ dispatcher = updater.dispatcher
 def start(update, context):
 	context.bot.send_message(chat_id=update.effective_chat.id, text="Я запустился")
 
+
 def create_list_day(text):
 	msg_list_for_day.append(text)
 
-'''
-def get_msg_text(update):
+def get_msg(update):
+	''' 
+	Проверяем наличие заданных слов по списку. Если есть - добаляем в список на отсылку.
+	'''
+	global substring_list
 	text = update.message.text
-	return text
-'''
+	for i in substring_list:
+		if i in text:
+			create_list_day(text)
+		
 
-def sniffer_group(update, context):
+def sniffer_group(update):
 	'''
 	Запускаем сниффер.
 	'''
 	global group_chat_id
 	group_chat_id = update.effective_chat.id
-	text = update.message.text
-	for i in substring_list:
-		if i in text:
-			create_list_day(text)
-		else:
-			pass
+	MessageHandler(Filters.text & (~Filters.command), get_msg)
+	
 	#context.bot.send_message(group_chat_id, text=str(group_chat_id))
 
 def get_list_day(update, context):
@@ -60,6 +62,10 @@ dispatcher.add_handler(start_handler)  #Добавляем обработчик 
 
 sniffer_handler = CommandHandler('sniff', sniffer_group)
 dispatcher.add_handler(sniffer_handler)
+
+get_list_handler = CommandHandler('get-list', get_list_day)
+dispatcher.add_handler(get_list_handler)
+#dispatcher.add_handler(get_msg_handler)
 
 stop_sniff_handler = CommandHandler('stopsniff', stop_sniffer)
 dispatcher.add_handler(stop_sniff_handler)
