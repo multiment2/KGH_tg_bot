@@ -18,7 +18,7 @@ dispatcher = updater.dispatcher
 
 
 def create_list_day(user,text): #Заполняем словарь (ключ - имя пользователя, значение - тест сообщения) на отправку
-	msg_list_for_day
+	msg_list_for_day[user] = [].append(text)
 
 def get_msg(update, context):
 	''' 
@@ -26,9 +26,10 @@ def get_msg(update, context):
 	'''
 	global substring_list
 	text = update.message.text
+	name = update.message.user_name
 	for i in substring_list:
 		if i in text:
-			create_list_day(text)
+			create_list_day(name,text)
 		
 
 def sniffer_start(update, context):
@@ -37,24 +38,17 @@ def sniffer_start(update, context):
 	'''
 	global group_chat_id
 	group_chat_id = update.effective_chat.id
-<<<<<<< HEAD
 	context.bot.send_message(group_chat_id, text=str(group_chat_id))
-=======
 	#MessageHandler(Filters.text & (~Filters.command), get_msg)
-	
-	context.bot.send_message(group_chat_id, text=str(group_chat_id))
 	return SNIFF
 
 
 def get_list_day(update, context):
 	global msg_list_for_day
 	chat_id = update.effective_chat.id
-<<<<<<< HEAD
-	context.bot.send_message(chat_id, str(msg.split('\n') for msg in msg_list_for_day)) #Список преобразовать в JSON
->>>>>>> 053bc2b01f34bebbd03c723b770a24c9d57a239e
-=======
-	context.bot.send_message(chat_id, str(msg_list_for_day)) #Список преобразовать в JSON
->>>>>>> f9a94dfb618f14cd8b6051c82418941d26e19c8e
+	for name in msg_list_for_day:
+		context.bot.send_message(chat_id, msg_list_for_day.keys +": "+msg_list_for_day.values) #Список преобразовать в JSON
+
 
 def stop_sniffer(update, context):
 	'''
