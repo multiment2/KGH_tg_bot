@@ -1,4 +1,5 @@
 from flask import Flask
+import json
 from config_run import *
 import telegram
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
@@ -17,8 +18,11 @@ dispatcher = updater.dispatcher
 #	context.bot.send_message(chat_id=update.effective_chat.id, text="Я запустился")
 
 
-def create_list_day(user,text): #Заполняем словарь (ключ - имя пользователя, значение - тест сообщения) на отправку
-	msg_list_for_day[user] = text
+def create_list_day(name,text): #Заполняем словарь (ключ - имя пользователя, значение - тест сообщения) на отправку
+	global msg_list_for_day
+	msg_list_for_day.setdefault(name, []).append(text) #Если ключа нет, то создаем новый ключ со значением путого списка
+		
+	print(msg_list_for_day)
 
 def get_msg(update, context):
 	''' 
@@ -46,15 +50,16 @@ def sniffer_start(update, context):
 def get_list_day(update, context):
 	global msg_list_for_day
 	chat_id = update.effective_chat.id
-	for name in msg_list_for_day:
-		context.bot.send_message(chat_id, msg_list_for_day) #Список преобразовать в JSON
+	#for name in msg_list_for_day:
+	context.bot.send_message(chat_id, str(msg_list_for_day)) #Список преобразовать в JSON
 
 
 def stop_sniffer(update, context):
 	'''
 	Останавливаем бота.
 	'''
-	global group_chat_id, msg_list_for_day
+	global group_chat_id
+	global msg_list_for_day
 	context.bot.send_message(group_chat_id, text = "Не слежу")
 	group_chat_id = 0
 	msg_list_for_day.clear()
@@ -93,7 +98,7 @@ updater.start_polling()  #Слушай сервера Telegram
 
 @app.route ("/")
 def hello_func():
-	return msg_list_for_day
+	return str(msg_list_for_day)
 
 
 if __name__ == "__main__":
