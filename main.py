@@ -1,5 +1,4 @@
 from flask import Flask
-import json
 from config_run import *
 import telegram
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
@@ -14,15 +13,13 @@ updater = Updater(token=TOKEN, use_context=True)
 
 dispatcher = updater.dispatcher
 
-#def start(update, context):
-#	context.bot.send_message(chat_id=update.effective_chat.id, text="Я запустился")
-
 
 def create_list_day(name,text): #Заполняем словарь (ключ - имя пользователя, значение - тест сообщения) на отправку
 	global msg_list_for_day
 	msg_list_for_day.setdefault(name, []).append(text) #Если ключа нет, то создаем новый ключ со значением путого списка
 		
 	print(msg_list_for_day)
+
 
 def get_msg(update, context):
 	''' 
@@ -66,10 +63,6 @@ def stop_sniffer(update, context):
 	return ConversationHandler.END
 
 
-
-#start_handler = CommandHandler('start', start)  #Объединяем функцию и обработчик
-#dispatcher.add_handler(start_handler)  #Добавляем обработчик в диспетчер
-
 conv_handler = ConversationHandler(entry_points=[CommandHandler('sniff', sniffer_start)],
 									states = {
 										SNIFF: [MessageHandler(Filters.text & (~Filters.command), get_msg)],
@@ -78,7 +71,6 @@ conv_handler = ConversationHandler(entry_points=[CommandHandler('sniff', sniffer
 
 get_list_handler = CommandHandler("get_list", get_list_day)
 dispatcher.add_handler(get_list_handler)
-#dispatcher.add_handler(get_msg_handler)
 
 dispatcher.add_handler(conv_handler)
 
