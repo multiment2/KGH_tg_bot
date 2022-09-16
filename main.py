@@ -18,7 +18,10 @@ dispatcher = updater.dispatcher
 
 
 def create_list_day(user,text): #Заполняем словарь (ключ - имя пользователя, значение - тест сообщения) на отправку
-	msg_list_for_day[user] = text
+	msg_list_for_day[user]:
+	
+
+
 
 def get_msg(update, context):
 	''' 
@@ -47,7 +50,7 @@ def get_list_day(update, context):
 	global msg_list_for_day
 	chat_id = update.effective_chat.id
 	for name in msg_list_for_day:
-		context.bot.send_message(chat_id, msg_list_for_day) #Список преобразовать в JSON
+		context.bot.send_message(chat_id, str(msg_list_for_day)) #Список преобразовать в JSON
 
 
 def stop_sniffer(update, context):
