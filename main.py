@@ -47,13 +47,9 @@ def sniffer_start(update, context):
 def get_list_day(update, context):
 	global msg_list_for_day
 	chat_id = update.effective_chat.id
-<<<<<<< HEAD
+
 	for name in msg_list_for_day:
 		context.bot.send_message(chat_id, str(msg_list_for_day)) #Список преобразовать в JSON
-=======
-	#for name in msg_list_for_day:
-	context.bot.send_message(chat_id, str(msg_list_for_day)) #Список преобразовать в JSON
->>>>>>> 692eaf6afdc82b66095871da40e0b67164daa3ca
 
 
 def stop_sniffer(update, context):
